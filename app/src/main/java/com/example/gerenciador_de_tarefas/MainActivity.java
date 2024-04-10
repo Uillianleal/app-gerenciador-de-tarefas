@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                // Verifique se a aba selecionada é a que você deseja (por exemplo, a aba "Nova Tarefa")
                 if (tab.getText().equals("Nova Tarefa")) {
                     Intent intent = new Intent(MainActivity.this, NewTaskActivity.class);
                     startActivity(intent);
@@ -48,12 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                // Aqui você pode implementar o comportamento quando uma aba é desselecionada, se necessário
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                // Aqui você pode implementar o comportamento quando uma aba já selecionada é clicada novamente, se necessário
             }
         });
     }

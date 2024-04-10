@@ -37,7 +37,6 @@ public class NewTaskActivity extends AppCompatActivity {
                 int month = calendar.get(Calendar.MONTH);
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                // Mudar o locale para português
                 Locale locale = new Locale("pt", "BR");
                 Locale.setDefault(locale);
                 calendar.setFirstDayOfWeek(Calendar.SUNDAY);
@@ -52,7 +51,6 @@ public class NewTaskActivity extends AppCompatActivity {
                             }
                         }, year, month, day);
 
-                // Defina o locale do datePickerDialog
                 datePickerDialog.getDatePicker().setFirstDayOfWeek(Calendar.SUNDAY);
                 datePickerDialog.show();
             }
