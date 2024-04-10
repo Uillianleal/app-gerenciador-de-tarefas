@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Gerenciador-de-tarefas</string>
     <string name="toolbar_text">Gerenciador de Tarefas</string>
+    <string name="tablayout_tarefa">Tarefas</string>
+    <string name="tablayout_nova_tarefa">Nova Tarefa</string>
+    <string name="fab_description">Adicionar tarefa</string>
 </resources>
