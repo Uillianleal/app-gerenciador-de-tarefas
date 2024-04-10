@@ -4,4 +4,12 @@
     <string name="tablayout_tarefa">Tarefas</string>
     <string name="tablayout_nova_tarefa">Nova Tarefa</string>
     <string name="fab_description">Adicionar tarefa</string>
+    <string name="edittext_titulo">Título</string>
+    <string name="edittext_descricao">Descrição da Tarefa</string>
+    <string name="edittext_data_tarefa">Data da Tarefa</string>
+    <string name="textView_prioridade">Prioridade</string>
+    <string name="radiobutton_baixo">Baixa</string>
+    <string name="radiobutton_media">Média</string>
+    <string name="radiobutton_alta">Alta</string>
+    <string name="button_salva">Salvar</string>
 </resources>
