@@ -2,11 +2,17 @@ package com.example.gerenciador_de_tarefas.helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.gerenciador_de_tarefas.entities.Tarefa;
+import com.example.gerenciador_de_tarefas.enums.Prioridade;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "gerenciador_tarefas.db";
@@ -65,4 +71,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return id;
     }
+    public List<Tarefa> buscarTarefas() {
+        List<Tarefa> listaDeTarefas = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Simplificação: assumindo que todas as colunas existem e estão corretas
+        String query = "SELECT * FROM " + TABELA_TAREFAS + " ORDER BY " + COLUNA_DATA_ENTREGA + " DESC";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUNA_ID));
+                String titulo = cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_TITULO));
+                String descricao = cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_DESCRICAO));
+                long timeStamp = cursor.getLong(cursor.getColumnIndexOrThrow(COLUNA_DATA_ENTREGA));
+                Date dataEntrega = new Date(timeStamp);
+                boolean concluida = cursor.getInt(cursor.getColumnIndexOrThrow(COLUNA_CONCLUIDA)) == 1;
+                Prioridade prioridade = Prioridade.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_PRIORIDADE)));
+
+                Tarefa tarefa = new Tarefa(id, titulo, descricao, dataEntrega, concluida, prioridade);
+                listaDeTarefas.add(tarefa);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return listaDeTarefas;
+    }
+
+
 }

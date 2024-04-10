@@ -1,6 +1,7 @@
 package com.example.gerenciador_de_tarefas;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -119,6 +120,11 @@ public class NewTaskActivity extends AppCompatActivity {
                         rbLow.setChecked(false);
                         rbMedium.setChecked(false);
                         rbHigh.setChecked(false);
+
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("tarefaInserida", true);
+                        setResult(RESULT_OK, resultIntent);
+                        finish();
                     } else {
                         Toast.makeText(NewTaskActivity.this, "Erro ao inserir tarefa",
                                 Toast.LENGTH_SHORT).show();
