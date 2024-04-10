@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,20 +27,19 @@
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
     <EditText
         android:id="@+id/editTextText"
         android:layout_width="299dp"
         android:layout_height="48dp"
-        android:layout_marginTop="52dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/edittext_titulo"
+        android:layout_marginTop="32dp"
         android:autofillHints="name"
+        android:ems="10"
+        android:hint="@string/edittext_titulo"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
@@ -50,10 +48,10 @@
         android:layout_width="301dp"
         android:layout_height="51dp"
         android:layout_marginTop="16dp"
+        android:autofillHints="date"
         android:focusable="false"
         android:hint="@string/edittext_data_tarefa"
         android:inputType="date"
-        android:autofillHints="date"
         android:padding="12dp"
         android:textColor="@color/black"
         android:textColorHint="#757575"
@@ -66,13 +64,12 @@
         android:layout_width="300dp"
         android:layout_height="83dp"
         android:layout_marginTop="16dp"
-        android:hint="@string/edittext_descricao"
         android:autofillHints="name"
+        android:hint="@string/edittext_descricao"
         android:inputType="textMultiLine"
         android:maxLines="10"
         android:minLines="4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
@@ -80,50 +77,62 @@
         android:id="@+id/button"
         android:layout_width="192dp"
         android:layout_height="61dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="72dp"
         android:backgroundTint="#FF000080"
         android:text="@string/button_salva"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioButtonMedio" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupPrioridade" />
 
-    <RadioButton
-        android:id="@+id/radioButtonMedio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#FFA000"
-        android:text="@string/radiobutton_media"
+    <RadioGroup
+        android:id="@+id/radioGroupPrioridade"
+        android:layout_width="0dp"
+        android:layout_height="79dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/prioridade" />
+        app:layout_constraintTop_toBottomOf="@+id/prioridade">
 
-    <RadioButton
-        android:id="@+id/radioButtonBaixo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/radiobutton_baixo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/prioridade" />
+        <RadioButton
+            android:id="@+id/radioButtonBaixo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/radiobutton_baixo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/prioridade" />
 
-    <RadioButton
-        android:id="@+id/radioButtonAlto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/radiobutton_alta"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTaskDate"
-        app:layout_constraintTop_toBottomOf="@+id/prioridade" />
+        <RadioButton
+            android:id="@+id/radioButtonMedio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/radiobutton_media"
+            app:layout_constraintStart_toEndOf="@+id/radioButtonBaixo"
+            app:layout_constraintTop_toBottomOf="@+id/prioridade" />
+
+        <RadioButton
+            android:id="@+id/radioButtonAlto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/radiobutton_alta"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/radioButtonMedio"
+            app:layout_constraintTop_toBottomOf="@+id/prioridade" />
+    </RadioGroup>
 
     <TextView
         android:id="@+id/prioridade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="16dp"
         android:text="@string/textView_prioridade"
         android:textColor="#1976D2"
         android:textSize="18sp"
