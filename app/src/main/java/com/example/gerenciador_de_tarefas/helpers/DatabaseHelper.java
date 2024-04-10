@@ -1,11 +1,14 @@
 package com.example.gerenciador_de_tarefas.helpers;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+import com.example.gerenciador_de_tarefas.entities.Tarefa;
 
+public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "gerenciador_tarefas.db";
     private static final int DATABASE_VERSION = 1;
 
@@ -40,5 +43,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + TABELA_TAREFAS);
         onCreate(db);
+    }
+
+    public long inserirTarefa(Tarefa tarefa) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        long id = -1;
+        try {
+            ContentValues values = new ContentValues();
+            values.put(COLUNA_TITULO, tarefa.getTitulo());
+            values.put(COLUNA_DESCRICAO, tarefa.getDescricao());
+            values.put(COLUNA_DATA_ENTREGA, tarefa.getDataEntrega().getTime());
+            values.put(COLUNA_CONCLUIDA, tarefa.isConcluida() ? 1 : 0);
+            values.put(COLUNA_PRIORIDADE, tarefa.getPrioridade().toString());
+
+            id = db.insert(TABELA_TAREFAS, null, values);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            db.close();
+        }
+        return id;
     }
 }
