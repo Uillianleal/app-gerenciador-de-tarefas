@@ -138,4 +138,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowsAffected;
     }
 
+    public boolean deletarTarefa(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsDeleted = db.delete(TABELA_TAREFAS, COLUNA_ID + " = ?",
+                new String[]{String.valueOf(id)});
+        db.close();
+        return rowsDeleted > 0;
+    }
+
 }

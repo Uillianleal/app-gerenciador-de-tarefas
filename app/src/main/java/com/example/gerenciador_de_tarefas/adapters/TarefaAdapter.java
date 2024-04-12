@@ -1,11 +1,14 @@
 package com.example.gerenciador_de_tarefas.adapters;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gerenciador_de_tarefas.NewTaskActivity;
 import com.example.gerenciador_de_tarefas.R;
 import com.example.gerenciador_de_tarefas.entities.Tarefa;
+import com.example.gerenciador_de_tarefas.helpers.DatabaseHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -20,6 +24,8 @@ import java.util.Locale;
 
 public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaViewHolder> {
     private ImageView editIcon;
+
+    private ImageView deleteIcon;
     private List<Tarefa> tarefasList;
 
     public TarefaAdapter(List<Tarefa> tarefasList) {
@@ -63,6 +69,7 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaView
             textViewDataEntrega = itemView.findViewById(R.id.textViewDataEntrega);
             imageViewPrioridade = itemView.findViewById(R.id.imageViewPrioridade);
             editIcon = itemView.findViewById(R.id.edit_icon);
+            deleteIcon = itemView.findViewById(R.id.delete_icon);
         }
 
         public void bind(Tarefa tarefa) {
@@ -90,6 +97,39 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaView
                 intent.putExtra("TAREFA_ID", tarefa.getId());
                 itemView.getContext().startActivity(intent);
             });
+
+            deleteIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mostrarDialogoDeConfirmacao(tarefa);
+                }
+            });
+        }
+        private void mostrarDialogoDeConfirmacao(Tarefa tarefa) {
+            new AlertDialog.Builder(itemView.getContext())
+                    .setTitle("Confirmar Deleção")
+                    .setMessage("Deseja deletar a tarefa: " + tarefa.getTitulo() + "?")
+                    .setPositiveButton("Deletar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            deletarTarefa(tarefa);
+                        }
+                    })
+                    .setNegativeButton("Cancelar", null)
+                    .show();
+                 }
+
+        private void deletarTarefa(Tarefa tarefa) {
+            DatabaseHelper db = new DatabaseHelper(itemView.getContext());
+            if (db.deletarTarefa(tarefa.getId())) {
+                tarefasList.remove(tarefa);
+                notifyDataSetChanged();
+                Toast.makeText(itemView.getContext(), "Tarefa deletada com sucesso!",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(itemView.getContext(), "Erro ao deletar tarefa.",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
