@@ -2,6 +2,7 @@ package com.example.gerenciador_de_tarefas;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -76,16 +77,26 @@ public class MainActivity extends AppCompatActivity {
 
     private void atualizarListaTarefas() {
         List<Tarefa> tarefasList = databaseHelper.buscarTarefas();
-        adapter = new TarefaAdapter(tarefasList);
-        recyclerView.setAdapter(adapter);
+        if (adapter == null) {
+            adapter = new TarefaAdapter(tarefasList);
+            recyclerView.setAdapter(adapter);
+        } else {
+            adapter.setTarefas(tarefasList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        atualizarListaTarefas();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == NEW_TASK_REQUEST_CODE && resultCode == RESULT_OK) {
-            boolean tarefaInserida = data.getBooleanExtra("tarefaInserida", false);
-            if (tarefaInserida) {
+            if (data != null && (data.getBooleanExtra("tarefaInserida", false)
+                    || data.getBooleanExtra("tarefaAtualizada", false))) {
                 atualizarListaTarefas();
             }
         }

@@ -3,6 +3,7 @@ package com.example.gerenciador_de_tarefas;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -39,6 +40,12 @@ public class NewTaskActivity extends AppCompatActivity {
             return insets;
         });
 
+        if (getIntent().hasExtra("TAREFA_ID")) {
+            int tarefaId = getIntent().getIntExtra("TAREFA_ID", -1);
+            if (tarefaId != -1) {
+                carregarDadosTarefa(tarefaId);
+            }
+        }
         final EditText editTextTaskDate = findViewById(R.id.editTextTaskDate);
         editTextTaskDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,67 +78,123 @@ public class NewTaskActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText editTextTitulo = findViewById(R.id.editTextText);
-                EditText editTextDescricao = findViewById(R.id.editTextTaskDescription);
-                EditText editTextData = findViewById(R.id.editTextTaskDate);
-
-                String titulo = editTextTitulo.getText().toString();
-                String descricao = editTextDescricao.getText().toString();
-                String dataString = editTextData.getText().toString();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                Date dataEntrega = null;
-
                 try {
-                    dataEntrega = formatter.parse(dataString);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                    EditText editTextTitulo = findViewById(R.id.editTextText);
+                    EditText editTextDescricao = findViewById(R.id.editTextTaskDescription);
+                    EditText editTextData = findViewById(R.id.editTextTaskDate);
 
-                RadioButton rbLow = findViewById(R.id.radioButtonBaixo);
-                RadioButton rbMedium = findViewById(R.id.radioButtonMedio);
-                RadioButton rbHigh = findViewById(R.id.radioButtonAlto);
+                    String titulo = editTextTitulo.getText().toString().trim();
+                    String descricao = editTextDescricao.getText().toString().trim();
+                    String dataString = editTextData.getText().toString().trim();
 
-                Prioridade prioridade;
+                    if (titulo.isEmpty() || dataString.isEmpty()) {
+                        Toast.makeText(NewTaskActivity.this, "Título e data são obrigatórios.",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-                if (rbLow.isChecked()) {
-                    prioridade = Prioridade.LOW;
-                } else if (rbMedium.isChecked()) {
-                    prioridade = Prioridade.MEDIUM;
-                } else {
-                    prioridade = Prioridade.HIGH;
-                }
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    Date dataEntrega = formatter.parse(dataString);
 
-                if (titulo.isEmpty() || dataEntrega == null) {
-                    Toast.makeText(NewTaskActivity.this,
-                            "Título e data são obrigatórios.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Tarefa novaTarefa = new Tarefa(0, titulo, descricao, dataEntrega,
-                            false, prioridade);
+                    RadioButton rbLow = findViewById(R.id.radioButtonBaixo);
+                    RadioButton rbMedium = findViewById(R.id.radioButtonMedio);
+                    RadioButton rbHigh = findViewById(R.id.radioButtonAlto);
+
+                    Prioridade prioridade = rbLow.isChecked() ? Prioridade.LOW : rbMedium.isChecked()
+                            ? Prioridade.MEDIUM : Prioridade.HIGH;
 
                     DatabaseHelper dpHelper = new DatabaseHelper(NewTaskActivity.this);
-                    long id = dpHelper.inserirTarefa(novaTarefa);
-                    if (id > 0) {
-                        Toast.makeText(NewTaskActivity.this, "Tarefa inserida com sucesso!",
-                                Toast.LENGTH_SHORT).show();
+                    if (getIntent().hasExtra("TAREFA_ID")) {
+                        //Codigo para a Edição de uma nova tarefa by:Uillian
+                        int tarefaId = getIntent().getIntExtra("TAREFA_ID", -1);
+                        Tarefa tarefaExistente = new Tarefa(tarefaId, titulo, descricao, dataEntrega,
+                                false, prioridade);
+                        int rowsAffected = dpHelper.atualizarTarefa(tarefaExistente);
+                        if (rowsAffected > 0) {
+                            Toast.makeText(NewTaskActivity.this, "Tarefa atualizada com sucesso!",
+                                    Toast.LENGTH_SHORT).show();
 
-                        editTextTitulo.setText("");
-                        editTextDescricao.setText("");
-                        editTextData.setText("");
-                        rbLow.setChecked(false);
-                        rbMedium.setChecked(false);
-                        rbHigh.setChecked(false);
+                            editTextTitulo.setText("");
+                            editTextDescricao.setText("");
+                            editTextData.setText("");
+                            rbLow.setChecked(false);
+                            rbMedium.setChecked(false);
+                            rbHigh.setChecked(false);
 
-                        Intent resultIntent = new Intent();
-                        resultIntent.putExtra("tarefaInserida", true);
-                        setResult(RESULT_OK, resultIntent);
-                        finish();
+                            Intent resultIntent = new Intent();
+                            resultIntent.putExtra("tarefaAtualizada", true);
+                            setResult(RESULT_OK, resultIntent);
+                            finish();
+
+                        } else {
+                            Toast.makeText(NewTaskActivity.this, "Erro ao atualizar tarefa",
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        Toast.makeText(NewTaskActivity.this, "Erro ao inserir tarefa",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                }
+                        // Codigo para a inserção de uma nova tarefa by:Uillian
+                        Tarefa novaTarefa = new Tarefa(0, titulo, descricao, dataEntrega, false, prioridade);
+                        long id = dpHelper.inserirTarefa(novaTarefa);
+                        if (id > 0) {
+                            Toast.makeText(NewTaskActivity.this, "Tarefa inserida com sucesso!",
+                                    Toast.LENGTH_SHORT).show();
 
+                            editTextTitulo.setText("");
+                            editTextDescricao.setText("");
+                            editTextData.setText("");
+                            rbLow.setChecked(false);
+                            rbMedium.setChecked(false);
+                            rbHigh.setChecked(false);
+
+                            Intent resultIntent = new Intent();
+                            resultIntent.putExtra("tarefaInserida", true);
+                            setResult(RESULT_OK, resultIntent);
+                            finish();
+
+                        } else {
+                            Toast.makeText(NewTaskActivity.this, "Erro ao inserir tarefa",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } catch (ParseException e) {
+                    Toast.makeText(NewTaskActivity.this, "Formato de data inválido.",
+                            Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(NewTaskActivity.this, "Erro ao salvar tarefa: " + e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+
+       private void carregarDadosTarefa(int id) {
+        DatabaseHelper db = new DatabaseHelper(this);
+        Tarefa tarefa = db.buscarTarefaPorId(id);
+        if (tarefa != null) {
+            EditText editTextTitulo = findViewById(R.id.editTextText);
+            EditText editTextDescricao = findViewById(R.id.editTextTaskDescription);
+            EditText editTextData = findViewById(R.id.editTextTaskDate);
+
+            editTextTitulo.setText(tarefa.getTitulo());
+            editTextDescricao.setText(tarefa.getDescricao());
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            String dataString = formatter.format(tarefa.getDataEntrega());
+            editTextData.setText(dataString);
+
+
+            RadioButton rbLow = findViewById(R.id.radioButtonBaixo);
+            RadioButton rbMedium = findViewById(R.id.radioButtonMedio);
+            RadioButton rbHigh = findViewById(R.id.radioButtonAlto);
+            switch (tarefa.getPrioridade()) {
+                case LOW:
+                    rbLow.setChecked(true);
+                    break;
+                case MEDIUM:
+                    rbMedium.setChecked(true);
+                    break;
+                case HIGH:
+                    rbHigh.setChecked(true);
+                    break;
+            }
+        }
     }
 }

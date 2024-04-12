@@ -1,0 +1,15 @@
+
+r
+java:S1066b"/Merge this if statement with the enclosing one.(šó³í8é¡Æší1J$debba67b-fd20-462a-9278-02d4799e1e71
+i
+java:S16042"(Make this anonymous inner class a lambda(ù‘’ØüÿÿÿÿJ$badb79d8-5bd5-4248-a584-dbfff8a643d8
+
+java:S18746">Remove this use of "startActivityForResult"; it is deprecated.(ÿÀÕ½øÿÿÿÿJ$7da87d8c-35dc-4199-914a-7537f77dc393
+Â
+java:S1186E"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(½Ä³ïşÿÿÿÿJ$7fac8364-e71d-42bd-9fcc-b1669e99dc49
+½
+java:S1186I"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦›ÍJ$a3ba3317-6ac9-4e13-a7e9-867018b59a93
+
+java:S1874@">Remove this use of "startActivityForResult"; it is deprecated.(ÿÀÕ½øÿÿÿÿJ$23ba4cf2-ab0f-4bc6-9813-444a572afe72
+
+java:S1874_"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ŸŒ¹Ñ8œÓù™í1J$6f78dc95-827c-4ecb-a4be-b8b4528ec7d7

@@ -71,12 +71,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return id;
     }
+
     public List<Tarefa> buscarTarefas() {
         List<Tarefa> listaDeTarefas = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // Simplificação: assumindo que todas as colunas existem e estão corretas
-        String query = "SELECT * FROM " + TABELA_TAREFAS + " ORDER BY " + COLUNA_DATA_ENTREGA + " DESC";
+        String query = "SELECT * FROM " + TABELA_TAREFAS + " ORDER BY " + COLUNA_DATA_ENTREGA + " ASC";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
@@ -98,5 +98,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return listaDeTarefas;
     }
 
+    public Tarefa buscarTarefaPorId(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Tarefa tarefa = null;
+
+        String query = "SELECT * FROM " + TABELA_TAREFAS + " WHERE " + COLUNA_ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[] { String.valueOf(id) });
+
+        if (cursor.moveToFirst()) {
+            String titulo = cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_TITULO));
+            String descricao = cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_DESCRICAO));
+            long timeStamp = cursor.getLong(cursor.getColumnIndexOrThrow(COLUNA_DATA_ENTREGA));
+            Date dataEntrega = new Date(timeStamp);
+            boolean concluida = cursor.getInt(cursor.getColumnIndexOrThrow(COLUNA_CONCLUIDA)) == 1;
+            Prioridade prioridade = Prioridade.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(COLUNA_PRIORIDADE)));
+
+            tarefa = new Tarefa(id, titulo, descricao, dataEntrega, concluida, prioridade);
+        }
+        cursor.close();
+        db.close();
+
+        return tarefa;
+    }
+
+    public int atualizarTarefa(Tarefa tarefa) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUNA_TITULO, tarefa.getTitulo());
+        values.put(COLUNA_DESCRICAO, tarefa.getDescricao());
+        values.put(COLUNA_DATA_ENTREGA, tarefa.getDataEntrega().getTime());
+        values.put(COLUNA_CONCLUIDA, tarefa.isConcluida() ? 1 : 0);
+        values.put(COLUNA_PRIORIDADE, tarefa.getPrioridade().toString());
+
+        int rowsAffected = db.update(TABELA_TAREFAS, values, COLUNA_ID + " = ?",
+                new String[] { String.valueOf(tarefa.getId()) });
+        db.close();
+
+        return rowsAffected;
+    }
 
 }

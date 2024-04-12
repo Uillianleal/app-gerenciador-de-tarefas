@@ -77,7 +77,7 @@
         android:id="@+id/button"
         android:layout_width="192dp"
         android:layout_height="61dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="4dp"
         android:backgroundTint="#FF000080"
         android:text="@string/button_salva"
         app:layout_constraintEnd_toEndOf="parent"

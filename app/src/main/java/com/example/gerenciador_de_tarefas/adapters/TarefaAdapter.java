@@ -1,5 +1,6 @@
 package com.example.gerenciador_de_tarefas.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gerenciador_de_tarefas.NewTaskActivity;
 import com.example.gerenciador_de_tarefas.R;
 import com.example.gerenciador_de_tarefas.entities.Tarefa;
 
@@ -17,10 +19,16 @@ import java.util.List;
 import java.util.Locale;
 
 public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaViewHolder> {
+    private ImageView editIcon;
     private List<Tarefa> tarefasList;
 
     public TarefaAdapter(List<Tarefa> tarefasList) {
         this.tarefasList = tarefasList;
+    }
+
+    public void setTarefas(List<Tarefa> tarefasList) {
+        this.tarefasList = tarefasList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -46,13 +54,15 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaView
         private TextView textViewDescricao;
         private TextView textViewDataEntrega;
         private ImageView imageViewPrioridade;
+        private ImageView editIcon;
 
         public TarefaViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitulo = itemView.findViewById(R.id.textViewTitulo);
             textViewDescricao = itemView.findViewById(R.id.textViewDescricao);
             textViewDataEntrega = itemView.findViewById(R.id.textViewDataEntrega);
-            imageViewPrioridade = itemView.findViewById(R.id.imageViewPrioridade); // Adicione esta linha
+            imageViewPrioridade = itemView.findViewById(R.id.imageViewPrioridade);
+            editIcon = itemView.findViewById(R.id.edit_icon);
         }
 
         public void bind(Tarefa tarefa) {
@@ -74,6 +84,12 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaView
                     imageViewPrioridade.setImageResource(R.drawable.circle_red);
                     break;
             }
+
+            editIcon.setOnClickListener(v -> {
+                Intent intent = new Intent(itemView.getContext(), NewTaskActivity.class);
+                intent.putExtra("TAREFA_ID", tarefa.getId());
+                itemView.getContext().startActivity(intent);
+            });
         }
     }
 }
