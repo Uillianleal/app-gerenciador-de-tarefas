@@ -1,13 +1,13 @@
 
 ’
-java:S1192+"JDefine a constant instead of duplicating this literal "TAREFA_ID" 4 times.(…Š§ôøÿÿÿÿ8¼¥¨ší1J$8bfcc03d-ba4f-47ae-b635-5110ed1d16c2
+java:S1192+"JDefine a constant instead of duplicating this literal "TAREFA_ID" 4 times.(…Š§ôøÿÿÿÿ8¼¥¨ší1J$9e801a7b-cc15-4c4d-8244-aedc31ac96f7
 k
-java:S1604@"(Make this anonymous inner class a lambda(ÌÜİ‚8Æ‘¹™í1J$c1b20251-587a-4d23-9295-32197a11df79
+java:S1604@"(Make this anonymous inner class a lambda(ÌÜİ‚8Æ‘¹™í1J$7db792fc-f4cb-4d74-ab39-4c5d72a5071f
 k
-java:S16042"(Make this anonymous inner class a lambda(İ»¡Ã8Æ‘¹™í1J$bf928adc-0a47-436f-8df0-3ce8a2fc2c02
+java:S16042"(Make this anonymous inner class a lambda(İ»¡Ã8Æ‘¹™í1J$d2d8fe95-d4c7-4a2f-9379-c8decf3079b6
 k
-java:S1604N"(Make this anonymous inner class a lambda(éÙÏ–8Æ‘¹™í1J$361c0aac-c38b-45b6-9603-cf7a37867e89
+java:S1604N"(Make this anonymous inner class a lambda(éÙÏ–8­¼ê¤í1J$60e0238a-a09a-4c67-93b4-bded2b00b01b
 š
-java:S3776!"RRefactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed.(¨Œşÿÿÿÿ8â‘¹™í1J$a1af7d75-8bec-46aa-a6da-e06cfdf91664
+java:S3776!"RRefactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed.(¨Œşÿÿÿÿ8â‘¹™í1J$cbd1a37e-4189-46ec-8d0e-8c943947d08d
 ‡
-java:S3358g"DExtract this nested ternary operation into an independent statement.(ËâÖå8î‘¹™í1J$df5770b7-171b-4ed5-9e2f-36f06addc2ed
+java:S3358g"DExtract this nested ternary operation into an independent statement.(ËâÖå8î‘¹™í1J$ccb6e375-159d-4425-92b7-bd8b98e09c02

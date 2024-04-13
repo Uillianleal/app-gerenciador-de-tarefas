@@ -7,3 +7,5 @@ v
 Fapp/src/main/java/com/example/gerenciador_de_tarefas/MainActivity.java,a\4\a47fd0aeccf8b82572b8b976bb724ddc0f6a5ac4
 y
 Iapp/src/main/java/com/example/gerenciador_de_tarefas/NewTaskActivity.java,7\3\730a2cfa0eb677695de667ca42ffbe7b195db5a8
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e

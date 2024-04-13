@@ -1,15 +1,15 @@
 
 r
-java:S1066b"/Merge this if statement with the enclosing one.(šó³í8é¡Æší1J$debba67b-fd20-462a-9278-02d4799e1e71
-i
-java:S16042"(Make this anonymous inner class a lambda(ù‘’ØüÿÿÿÿJ$badb79d8-5bd5-4248-a584-dbfff8a643d8
-
-java:S18746">Remove this use of "startActivityForResult"; it is deprecated.(ÿÀÕ½øÿÿÿÿJ$7da87d8c-35dc-4199-914a-7537f77dc393
-Â
-java:S1186E"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(½Ä³ïşÿÿÿÿJ$7fac8364-e71d-42bd-9fcc-b1669e99dc49
-½
-java:S1186I"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦›ÍJ$a3ba3317-6ac9-4e13-a7e9-867018b59a93
-
-java:S1874@">Remove this use of "startActivityForResult"; it is deprecated.(ÿÀÕ½øÿÿÿÿJ$23ba4cf2-ab0f-4bc6-9813-444a572afe72
+java:S1066b"/Merge this if statement with the enclosing one.(šó³í8ÀÅÒ¤í1J$856a95d2-fd08-4628-8eb2-7f6970f47b5b
+p
+java:S16042"(Make this anonymous inner class a lambda(ù‘’Øüÿÿÿÿ8ÂÅÒ¤í1J$32561dc4-df00-4ed6-920e-bbc966acdcd5
+†
+java:S18746">Remove this use of "startActivityForResult"; it is deprecated.(ÿÀÕ½øÿÿÿÿ8ìÅÒ¤í1J$6183c4e6-1fc9-43f4-a9be-7b695f238cf2
+É
+java:S1186E"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(½Ä³ïşÿÿÿÿ8îÅÒ¤í1J$9d5f29e2-ef88-4157-963f-0a84efbf0912
+Ä
+java:S1186I"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦›Í8îÅÒ¤í1J$a8644066-b5b3-4f49-b56b-fccad192b2bd
+†
+java:S1874@">Remove this use of "startActivityForResult"; it is deprecated.(ÿÀÕ½øÿÿÿÿ8ğÅÒ¤í1J$7412bd6b-49f3-4b70-a019-924bc0135baa
 
-java:S1874_"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ŸŒ¹Ñ8œÓù™í1J$6f78dc95-827c-4ecb-a4be-b8b4528ec7d7
+java:S1874_"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ŸŒ¹Ñ8ñÅÒ¤í1J$f56d151e-26af-40f2-9fe5-7afab6b331d7

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gerenciador_de_tarefas.MainActivity;
 import com.example.gerenciador_de_tarefas.NewTaskActivity;
 import com.example.gerenciador_de_tarefas.R;
 import com.example.gerenciador_de_tarefas.entities.Tarefa;
@@ -98,32 +99,30 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaView
                 itemView.getContext().startActivity(intent);
             });
 
-            deleteIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mostrarDialogoDeConfirmacao(tarefa);
+            deleteIcon.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    mostrarDialogoDeConfirmacao(position);
                 }
             });
         }
-        private void mostrarDialogoDeConfirmacao(Tarefa tarefa) {
+        private void mostrarDialogoDeConfirmacao(int position) {
+            Tarefa tarefa = tarefasList.get(position);
             new AlertDialog.Builder(itemView.getContext())
                     .setTitle("Confirmar Deleção")
                     .setMessage("Deseja deletar a tarefa: " + tarefa.getTitulo() + "?")
-                    .setPositiveButton("Deletar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            deletarTarefa(tarefa);
-                        }
-                    })
+                    .setPositiveButton("Deletar", (dialog, which) -> deletarTarefa(position))
                     .setNegativeButton("Cancelar", null)
                     .show();
-                 }
+        }
 
-        private void deletarTarefa(Tarefa tarefa) {
+        private void deletarTarefa(int position) {
+            Tarefa tarefa = tarefasList.get(position);
             DatabaseHelper db = new DatabaseHelper(itemView.getContext());
             if (db.deletarTarefa(tarefa.getId())) {
-                tarefasList.remove(tarefa);
-                notifyDataSetChanged();
+                tarefasList.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, getItemCount());
                 Toast.makeText(itemView.getContext(), "Tarefa deletada com sucesso!",
                         Toast.LENGTH_SHORT).show();
             } else {
@@ -132,4 +131,5 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaView
             }
         }
     }
+
 }
