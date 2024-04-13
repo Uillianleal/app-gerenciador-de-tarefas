@@ -3,6 +3,7 @@ package com.example.gerenciador_de_tarefas.adapters;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gerenciador_de_tarefas.MainActivity;
@@ -20,6 +22,8 @@ import com.example.gerenciador_de_tarefas.entities.Tarefa;
 import com.example.gerenciador_de_tarefas.helpers.DatabaseHelper;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -73,6 +77,16 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaView
             deleteIcon = itemView.findViewById(R.id.delete_icon);
         }
 
+        private Date zerarHora(Date data) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(data);
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            return calendar.getTime();
+        }
+
         public void bind(Tarefa tarefa) {
             textViewTitulo.setText(tarefa.getTitulo());
             textViewDescricao.setText(tarefa.getDescricao());
@@ -80,6 +94,17 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.TarefaView
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             String dataEntregaFormatada = formatter.format(tarefa.getDataEntrega());
             textViewDataEntrega.setText(dataEntregaFormatada);
+
+            Date hoje = zerarHora(new Date());
+            Date dataEntrega = zerarHora(tarefa.getDataEntrega());
+
+            if (hoje.after(dataEntrega) && !tarefa.isConcluida()) {
+                itemView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.light_blue));
+                textViewTitulo.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.black));
+                textViewDescricao.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.black));
+                textViewDataEntrega.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.black));
+            }
+
 
             switch (tarefa.getPrioridade()) {
                 case LOW:
