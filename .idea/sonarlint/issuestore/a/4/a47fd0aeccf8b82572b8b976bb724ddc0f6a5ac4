@@ -1,15 +1,15 @@
 
 r
-java:S1066b"/Merge this if statement with the enclosing one.(šó³í8ÀÅÒ¤í1J$856a95d2-fd08-4628-8eb2-7f6970f47b5b
+java:S1066|"/Merge this if statement with the enclosing one.(šó³í8…»ÀÂí1J$219e2524-66af-489d-95ce-7e5a052e0bc4
 p
-java:S16042"(Make this anonymous inner class a lambda(ù‘’Øüÿÿÿÿ8ÂÅÒ¤í1J$32561dc4-df00-4ed6-920e-bbc966acdcd5
+java:S1604>"(Make this anonymous inner class a lambda(ù‘’Øüÿÿÿÿ8˜çÜÀí1J$980eeb84-6c4c-4944-be57-31e8e876e55d
 †
-java:S18746">Remove this use of "startActivityForResult"; it is deprecated.(ÿÀÕ½øÿÿÿÿ8ìÅÒ¤í1J$6183c4e6-1fc9-43f4-a9be-7b695f238cf2
+java:S1874B">Remove this use of "startActivityForResult"; it is deprecated.(ÿÀÕ½øÿÿÿÿ8ÎçÜÀí1J$9cd1f649-3c2c-4002-a6a5-99ca48f2b403
 É
-java:S1186E"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(½Ä³ïşÿÿÿÿ8îÅÒ¤í1J$9d5f29e2-ef88-4157-963f-0a84efbf0912
+java:S1186Q"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(½Ä³ïşÿÿÿÿ8ÑçÜÀí1J$84e34f1d-a080-443e-86e7-fec61320480f
 Ä
-java:S1186I"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦›Í8îÅÒ¤í1J$a8644066-b5b3-4f49-b56b-fccad192b2bd
+java:S1186U"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦›Í8ÑçÜÀí1J$4c0ae915-eefe-49d8-8742-c450713f9463
 †
-java:S1874@">Remove this use of "startActivityForResult"; it is deprecated.(ÿÀÕ½øÿÿÿÿ8ğÅÒ¤í1J$7412bd6b-49f3-4b70-a019-924bc0135baa
+java:S1874L">Remove this use of "startActivityForResult"; it is deprecated.(ÿÀÕ½øÿÿÿÿ8ÒçÜÀí1J$096c3bf9-db94-4d66-9ad5-f7ad7a994b5e
 
-java:S1874_"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ŸŒ¹Ñ8ñÅÒ¤í1J$f56d151e-26af-40f2-9fe5-7afab6b331d7
+java:S1874y"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ŸŒ¹Ñ8ñ‡İÁí1J$136aa662-2e87-4dd9-844b-e9937943f505

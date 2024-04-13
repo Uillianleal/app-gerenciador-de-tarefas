@@ -1,7 +1,11 @@
 package com.example.gerenciador_de_tarefas;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +24,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.gerenciador_de_tarefas.entities.Tarefa;
 import com.example.gerenciador_de_tarefas.enums.Prioridade;
 import com.example.gerenciador_de_tarefas.helpers.DatabaseHelper;
+import com.example.gerenciador_de_tarefas.helpers.LembreteReceiver;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -111,6 +116,7 @@ public class NewTaskActivity extends AppCompatActivity {
                                 false, prioridade);
                         int rowsAffected = dpHelper.atualizarTarefa(tarefaExistente);
                         if (rowsAffected > 0) {
+                            agendarNotificacao(dataEntrega, titulo, tarefaId);
                             Toast.makeText(NewTaskActivity.this, "Tarefa atualizada com sucesso!",
                                     Toast.LENGTH_SHORT).show();
 
@@ -135,6 +141,7 @@ public class NewTaskActivity extends AppCompatActivity {
                         Tarefa novaTarefa = new Tarefa(0, titulo, descricao, dataEntrega, false, prioridade);
                         long id = dpHelper.inserirTarefa(novaTarefa);
                         if (id > 0) {
+                            agendarNotificacao(dataEntrega, titulo, (int) id);
                             Toast.makeText(NewTaskActivity.this, "Tarefa inserida com sucesso!",
                                     Toast.LENGTH_SHORT).show();
 
@@ -195,6 +202,23 @@ public class NewTaskActivity extends AppCompatActivity {
                     rbHigh.setChecked(true);
                     break;
             }
+        }
+    }
+
+    private void agendarNotificacao(Date dataTarefa, String tituloTarefa, int idNotificacao) {
+        Intent intent = new Intent(this, LembreteReceiver.class);
+        intent.putExtra("tituloTarefa", tituloTarefa);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, idNotificacao, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        long tempoMilis = dataTarefa.getTime();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tempoMilis, pendingIntent);
+        } else {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, tempoMilis, pendingIntent);
         }
     }
 }

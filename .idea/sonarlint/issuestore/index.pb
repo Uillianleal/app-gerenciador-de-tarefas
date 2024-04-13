@@ -9,3 +9,7 @@ y
 Iapp/src/main/java/com/example/gerenciador_de_tarefas/NewTaskActivity.java,7\3\730a2cfa0eb677695de667ca42ffbe7b195db5a8
 P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+‚
+Rapp/src/main/java/com/example/gerenciador_de_tarefas/helpers/LembreteReceiver.java,b\8\b8664fe92f64d0a1b67937c48cd5a535c6cafdc5
+‡
+Wapp/src/main/java/com/example/gerenciador_de_tarefas/helpers/NotificationScheduler.java,b\2\b2f7227aaadc70a2c79fef5e9531e258a269bd33
